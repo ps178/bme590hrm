@@ -1,7 +1,3 @@
-try:
-    import glob
-except ImportError:
-    print("Could not import glob")
 
 try:
     import numpy as np
@@ -20,22 +16,14 @@ except ImportError:
 
 class ECG():
 
-    def __init__(self, File_Name):
-        self.File_Name = File_Name
-        self.Data_Array = None
+    def __init__(self, Data_Array):
+        self.Data_Array = Data_Array
+
         self.Mean_hr_bpm = None
         self.Voltage_Extremes = None
         self.Duration = None
         self.Num_Beats = None
         self.Beats = None
-
-    def Read_File(self):
-        Data = [] # Create an empty array
-        with open('%s' % self.File_Name,'r') as My_File: #Open the file for reading purposes only and then close it
-            Data = My_Files.readlines()
-        Data_Array = np.array(Data)
-        self.Data_Array = Data_Array
-
    
 
     def Method_Mean_hr_bpm():
@@ -53,6 +41,5 @@ class ECG():
     def Method_Beats():
         pass
    
-    def Write_JSON():
 
   
