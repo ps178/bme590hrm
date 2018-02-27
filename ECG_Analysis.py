@@ -36,8 +36,12 @@ class ECG():
     def Method_Mean_hr_bpm():
         pass
 
-    def Method_Voltage_Extremes():
-        pass
+    def Method_Voltage_Extremes(self):
+        Min = np.amin(self.Data_Array, axis = 0)
+        Max = np.amax(self.Data_Array, axis = 0)
+
+        self.Voltage_Extremes = ((Max[1]),(Min[1]))
+        print(self.Voltage_Extremes)
 
     def Method_Duration(self):
         duration = self.Data_Array[-1,0]

@@ -23,13 +23,22 @@ def test_Mean_hr_bpm():
     pass
 
 def test_Voltage_Extremes():
-    pass
+    from ECG_Analysis import ECG
+    Object = ECG(Data_Array = np.array([[1,2],[3,4],[5,6],[7,8],[77,88]]))
+    Object.Method_Voltage_Extremes()
+    assert Object.Voltage_Extremes == ((88),(2))
+    assert isinstance(Object.Voltage_Extremes, tuple) == True
+
+
     
 def test_Duration():
     from ECG_Analysis import ECG
     Object = ECG(Data_Array = np.array([[1,2],[3,4],[5,6],[7,8],[77,88]]))
     Object.Method_Duration()
     assert Object.Duration == 77   
+  
+
+
 
 def test_Num_Beats():
     pass
