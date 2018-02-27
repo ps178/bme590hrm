@@ -31,21 +31,25 @@ class Parse_Files:
 
     """
 
-    def __init__(self, File_Name, Calculations):
+    def __init__(self, File_Name, Calculations, File_Path_Read = "Medical-Software-Design/Assignments/HeartRateMonitor/test_data/"):
         self.File_Name = File_Name
-        self.File_Type = None
         self.Data_Array = None
         self.Calculations = Calculations
+        self.File_Path_Read = File_Path_Read
+
+
 
     def Read_File(self):
-        
-        filename = "Medical-Software-Design/Assignments/HeartRateMonitor/test_data/" + str(self.File_Name)
-        print(filename)
-        print(filename.endswith('*.csv')) 
+        filename = self.File_Path_Read + str(self.File_Name)
+  
         #if filename.endswith('*.csv'):
             #logging.info("Input is a CSV file")
         Data = []
-        Data = pd.read_csv(filename)
+        try:
+            Data = pd.read_csv(filename)
+        except ImportError:
+            print("The specified file could not be found")
+
         self.Data_Array = np.array(Data)
 
         #else:
