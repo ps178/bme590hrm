@@ -14,20 +14,25 @@ except ImportError:
 def main():
     File_Name_Input = input("What is the name of the file containing the ECG data?")
 
-    Get_File(File_Name_Input)
+    Data_Array = Get_File(File_Name_Input)
     Perform_Analysis(Data_Array)
     Save_Results()
 
 
 def Get_File():
-    pass
     from Class_Parse import Parse_Files
-    Object = Parse_Files(File_Name = File_Name_Input)
+    Object = Parse_Files(File_Name = File_Name_Input, Calculations = None)
+    Object.Read_File()
+
     Data_Array = Object.Data_Array
+
     return Data_Array
 
 def Perform_Analysis():
-    pass
+    from ECG_Analysis import ECG
+    Object = ECG(Data_Array = Data_Array)
+    
+    Object.Method_Duration()
 
 def Save_Results():
     pass

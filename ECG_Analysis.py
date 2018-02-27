@@ -40,8 +40,8 @@ class ECG():
         pass
 
     def Method_Duration(self):
-        self.Duration = np.array(zeros((2,1),Float))
-        self.Data_Array[-1,0] = self.Duration 
+        duration = self.Data_Array[-1,0]
+        self.Duration = np.array([[duration]])
 
     def Method_Num_Beats():
         pass
