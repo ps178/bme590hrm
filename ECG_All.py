@@ -15,11 +15,11 @@ def main():
     File_Name_Input = input("What is the name of the file containing the ECG data?")
 
     Data_Array = Get_File(File_Name_Input)
-    Perform_Analysis(Data_Array)
-    Save_Results()
+    Results = Perform_Analysis(Data_Array)
+    Save_Results(Results)
 
 
-def Get_File():
+def Get_File(File_Name_Input):
     from Class_Parse import Parse_Files
     Object = Parse_Files(File_Name = File_Name_Input, Calculations = None)
     Object.Read_File()
@@ -28,11 +28,21 @@ def Get_File():
 
     return Data_Array
 
-def Perform_Analysis():
+def Perform_Analysis(Data_Array):
     from ECG_Analysis import ECG
     Object = ECG(Data_Array = Data_Array)
-    
     Object.Method_Duration()
+    Object.Method_Voltage_Extremes()
+    
+    print(Object.Duration)
+    print(Object.Voltage_Extremes)
+    
+    Results = Object.Duration
+    return Results
 
-def Save_Results():
+def Save_Results(Results):
     pass
+
+if __name__ == "__main__":
+    main()
+
