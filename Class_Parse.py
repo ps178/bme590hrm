@@ -34,17 +34,18 @@ class Parse_Files:
     
 
     def Read_File(self):
-        filename = "../Medical-Software-Design/Assignments/HeartRateMonitor/test_data/" + str(self.File_Name)
-        with open(filename,'r') as My_File: 
-            if self.File_Name.endswith('*.csv'):
-                #logging.info("Input is a CSV file")
-                Data = pd.read_csv(My_File)
-                selflf.Data_Array = np.array(Data)
-                #print(self.Data_Array)
-            
-            elif self.File_Name.endswith('*.JSON'):
-                #logging.info("Input is a JSON file")
-                Data = pd.read_json(My_File)
+        filename = "Medical-Software-Design/Assignments/HeartRateMonitor/test_data/" + str(self.File_Name)
+        print(filename)
+        print(filename.endswith('*.csv')) 
+        #if filename.endswith('*.csv'):
+            #logging.info("Input is a CSV file")
+        Data = []
+        Data = pd.read_csv(filename)
+        self.Data_Array = np.array(Data)
+
+        #else:
+            #logging.warning("The specified file is not CSV!")
+         #   self.Data_Array = None 
 
     def Write_File(self):
         pass    
