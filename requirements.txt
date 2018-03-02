@@ -3,3 +3,7 @@ numpy
 sphinx
 ipython
 pandas
+matplotlib
+jupyter
+scipy
+peakutils

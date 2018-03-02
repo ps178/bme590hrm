@@ -31,7 +31,7 @@ class Parse_Files:
 
     """
 
-    def __init__(self, File_Name, Calculations, File_Path_Read = "Medical-Software-Design/Assignments/HeartRateMonitor/test_data/"):
+    def __init__(self, File_Name, Calculations = None, File_Path_Read = "Medical-Software-Design/Assignments/HeartRateMonitor/test_data/"):
         self.File_Name = File_Name
         self.Data_Array = None
         self.Calculations = Calculations
@@ -40,28 +40,24 @@ class Parse_Files:
 
 
     def Read_File(self):
+        logging.info("Reading the file into numpy array")
         filename = self.File_Path_Read + str(self.File_Name)
-  
-        #if filename.endswith('*.csv'):
-            #logging.info("Input is a CSV file")
         Data = []
+        
         try:
             Data = pd.read_csv(filename)
         except ImportError:
+            logging.error("The user specified file could not be found")
             print("The specified file could not be found")
 
-        self.Data_Array = np.array(Data)
-
-        #else:
-            #logging.warning("The specified file is not CSV!")
-         #   self.Data_Array = None 
+        self.Data_Array = np.array(Data) 
 
     def Write_File(self):
         File_Name_split = self.File_Name.split('.')
         File_Name_JSON = File_Name_split[0]
 
         logging.info("Writing JSON file called {}".format(File_Name_JSON))
-        df = pd.DataFrame(self.Calculations,columns = ["mean_hr_bpm","voltage_extremes","duration","num_beats","beats"])
+        df = pd.DataFrame(np.array(self.Calculations))
         df.to_json(File_Name_JSON + '.json')   
 
 
