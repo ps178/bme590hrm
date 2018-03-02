@@ -40,6 +40,12 @@ class Parse_Files:
 
 
     def Read_File(self):
+        """Read the CSV file into numpy array
+
+	:param Data_Array: Convert CSV data into a numpy array
+	:param File_Name: User specified file name
+
+	"""
         logging.info("Reading the file into numpy array")
         filename = self.File_Path_Read + str(self.File_Name)
         Data = []
@@ -53,12 +59,23 @@ class Parse_Files:
         self.Data_Array = np.array(Data) 
 
     def Write_File(self):
+        """Take numpy array results and save as a JSON file.
+
+        :param File_Name: User specified file name to save a JSON file
+
+	"""
+
         File_Name_split = self.File_Name.split('.')
         File_Name_JSON = File_Name_split[0]
 
         logging.info("Writing JSON file called {}".format(File_Name_JSON))
-        df = pd.DataFrame(np.array(self.Calculations))
-        df.to_json(File_Name_JSON + '.json')   
+
+	try:
+            df = pd.DataFrame(np.array(self.Calculations))
+	except TypeError:
+		print("The Calculations did not result in expected data type. Check the original data file.")
+	
+	df.to_json(File_Name_JSON + '.json')   
 
 
 
