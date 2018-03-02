@@ -60,7 +60,11 @@ def Perform_Analysis(Data_Array, User_Mins):
         User_Mins = None
 
     from ECG_Analysis import ECG
-    Object = ECG(Data_Array = Data_Array, User_Min = User_Mins)
+    try:
+        Object = ECG(Data_Array = Data_Array, User_Min = User_Mins)
+    except TypeError:
+        print("The data has to be all integers")
+
     Object.Method_Duration()
     Object.Method_Voltage_Extremes()
     Object.Method_Mean_hr_bpm()

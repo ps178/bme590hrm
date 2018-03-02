@@ -35,8 +35,12 @@ class ECG():
         self.Duration = None
         self.Num_Beats = None
         self.Beats = None
-    
-#    @property
+        
+        if np.all(self.Data_Array) is str:
+            raise TypeError("The data has to be all integers")
+        return    
+
+#    @pVroperty
 #    def Data_Array(self):
 #        return self.__Data_Array
 
@@ -84,11 +88,11 @@ class ECG():
 
         if self.User_Min is None:
                 logging.warning("User did not specify an interval for mean HR calculation")
-                self.Mean_hr_bpm = np.array([np.divide(Time_Interval, Nm_Beats)])
+                self.Mean_hr_bpm = np.round(np.array([np.divide(Time_Interval, Nm_Beats)]))
         else:
                 self.User_Min = np.multiply(self.User_Min, 60)
                 Time_Beat[np.where(Time_Beat<self.User_Min)]
-                self.Mean_hr_bpm = np.divide(np.subtract(Time_Beat[-1],Time_Beat[0]), np.size(Time_Beat))
+                self.Mean_hr_bpm = np.round(np.divide(np.subtract(Time_Beat[-1],Time_Beat[0]), np.size(Time_Beat)))
 
 
     def Method_Voltage_Extremes(self):
