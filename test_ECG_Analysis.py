@@ -20,7 +20,12 @@ def test_Write_File():
 
 # Testing ECG_Analysis.py file
 def test_Mean_hr_bpm():
-    pass
+    #from ECG_Analysis import ECG
+    #Object = ECG(Data_Array = np.array([[1,2],[3,4],[5,6],[7,8]])
+    #Object.Method_Mean_hr_bpm()
+    #assert Object.Mean_hr_bpm == 
+    
+    
 
 def test_Voltage_Extremes():
     from ECG_Analysis import ECG
