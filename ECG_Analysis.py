@@ -22,33 +22,59 @@ class ECG():
 
     """
 
-    def __init__(self, Data_Array, User_Min = None):
+    def __init__(self, Data_Array, User_Min):
         logging.info("Initilizing ECG class instance")
         
         self.User_Min = User_Min
         self.Data_Array = Data_Array
-	self.Time = np.multiply(self.Data_Array[:,0],60)
-	self.Voltage = self.Data_Array[:,1]
+        self.Time = np.multiply(self.Data_Array[:,0],60)
+        self.Voltage = self.Data_Array[:,1]
 
         self.Mean_hr_bpm = None
         self.Voltage_Extremes = None
         self.Duration = None
         self.Num_Beats = None
         self.Beats = None
-   
+    
+#    @property
+#    def Data_Array(self):
+#        return self.__Data_Array
+
+#    @Data_Array.setter
+#    def Data_Array(self, Data_Array):
+#        self.__Data_Array = Data_Array
+#        self.Method_Mean_hr_bpm()
+#        self.Method_Voltage_Extremes()
+#        self.Method_Duration()
+
+#    @property
+#    def User_Min(self):
+#        return self.__User_Min
+
+#    @User_Min.setter
+#    def User_Min(self):
+#        self.__User_Min = User_Min
+#        self.Method_Mean_hr_bpm()
 
     def Method_Mean_hr_bpm(self):
         logging.info("Detecting heart beat")
         
-        Mean_Voltage = np.mean(Voltage)
-        Norm = np.subtract(Voltage, Mean_Voltage)
+        Mean_Voltage = np.mean(self.Voltage)
+        Norm = np.subtract(self.Voltage, Mean_Voltage)
         Correlation = np.correlate(Norm, Norm, 'same')
         
-        Max = np.amax(Correlation)
+        try:
+            Max = np.amax(Correlation)
+        except ValueError:
+            print("Correlation failed. Check your ECG data.")
+
         Correlation_Norm = np.divide(Correlation, Max)
         
-        index = peakutils.indexes(Correlation_Norm, thres=0.1, min_dist=100)
-        Time_Beat = np.take(Time, index)        
+        try:
+            index = peakutils.indexes(Correlation_Norm, thres=0.1, min_dist=100)
+        except ValueError:
+            print("Program was not able to detect any peaks")
+        Time_Beat = np.take(self.Time, index)        
 	
         Time_Interval = np.subtract(Time_Beat[-1], Time_Beat[0])
         Nm_Beats = np.size(index)
@@ -71,7 +97,7 @@ class ECG():
         Min = np.amin(self.Voltage)
         Max = np.amax(self.Voltage)
 
-        self.Voltage_Extremes = ((Max[1]),(Min[1]))
+        self.Voltage_Extremes = ((Max),(Min))
 
     def Method_Duration(self):
 	

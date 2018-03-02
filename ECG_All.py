@@ -25,11 +25,11 @@ def main():
 
     """
     File_Name_Input = input("What is the name of the file containing the ECG data?")
-    User_Min = input("What is the time interval (in mins) for the mean HR? (Type None for the overall average)")
+    User_Mins = input("What is the time interval (in mins) for the mean HR? (Type None for the overall average)")
     
-    logging.infor("User inputted required values")
+    logging.info("User inputted required values")
     Data_Array = Get_File(File_Name_Input)
-    Results = Perform_Analysis(Data_Array, User_Min)
+    Results = Perform_Analysis(Data_Array, User_Mins)
     Save_Results(File_Name_Input, Results)
 
 
@@ -47,20 +47,20 @@ def Get_File(File_Name_Input):
     logging.info("ECG Data obtained")
     return Data_Array
 
-def Perform_Analysis(Data_Array, User_Min):
+def Perform_Analysis(Data_Array, User_Mins):
     """Calls the ECG_Analysis class to perform calculations on the ECG data.
     
     :param Data_Array: ECG data array in numpy array format
     :param User_Min: The user specified time interval
 
     """
-    if User_Min is int:
-        User_Min = User_Min
+    if User_Mins is int:
+        User_Mins = User_Mins
     else:
-        User_Min = None
+        User_Mins = None
 
     from ECG_Analysis import ECG
-    Object = ECG(Data_Array = Data_Array, User_Min = User_Min)
+    Object = ECG(Data_Array = Data_Array, User_Min = User_Mins)
     Object.Method_Duration()
     Object.Method_Voltage_Extremes()
     Object.Method_Mean_hr_bpm()

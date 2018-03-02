@@ -70,12 +70,12 @@ class Parse_Files:
 
         logging.info("Writing JSON file called {}".format(File_Name_JSON))
 
-	try:
+        try:
             df = pd.DataFrame(np.array(self.Calculations))
-	except TypeError:
-		print("The Calculations did not result in expected data type. Check the original data file.")
+        except TypeError:
+            print("The Calculations did not result in expected data type. Check the original data file.")
 	
-	df.to_json(File_Name_JSON + '.json')   
+        df.to_json(File_Name_JSON + '.json')   
 
 
 
